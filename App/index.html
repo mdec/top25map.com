@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Top25Map.com</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="College sports rankings data visualization with team logos on a Google Map" />
+	<link href='http://fonts.googleapis.com/css?family=Rambla:400,700|Montserrat' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="./appStyle.css" />
+	<script src="googleAnalytics.js"></script>
+</head>
+<body>
+	<div id="map"></div>
+    <div id="rankingsTable">
+        <table>
+            <tbody>
+                <!-- ko foreach: rankTableInfo -->
+                <tr>
+                    <td class="tableRank" data-bind="text: $index() + 1"></td>
+                    <td class="tableTeam" data-bind="html: $data"></td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+    <div id="seasonTracker">
+        <!-- ko foreach: seasonTracker -->
+        <span class="season" data-bind="html: $parent.constructTimeLink('season', $data),
+            css: { 'seasonActive': $parent.seasonString() == $data,
+                   'incrementDecrement': $data == $parent.DECREMENT_TEXT || $data == $parent.INCREMENT_TEXT}">
+        </span>
+        <!-- /ko -->
+    </div>
+    <div id="weekTracker">
+        <!-- ko foreach: weekTracker -->
+        <span class="week" data-bind="html: $parent.constructTimeLink('week', $data),
+            css: { 'weekActive': $parent.weekString() == $data,
+                   'incrementDecrement': $data == $parent.DECREMENT_TEXT || $data == $parent.INCREMENT_TEXT}"></span>
+        <!-- /ko -->
+    </div>
+    
+    <!-- Twitter share button -->
+    <div id="tweet">
+        <a href="https://twitter.com/share" class="twitter-share-button" 
+            data-text="Map of college basketball rankings from 1998-2014" 
+            data-hashtags="marchmadness">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+    <div id="credit">
+        <a href="http://www.masondecamillis.com" target="_blank">MasonDeCamillis.com</a>
+    </div>
+    
+    <div id="grayOut">
+        <div id="splashScreen">
+            <p id="splashText">
+            Welcome to top25map.com<br>
+            The map, images, and rankings data are loading.<br>
+            Thanks for your patience!<p>
+        </div>
+    </div>
+</body>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEGq5zoIMANJa-5Q2Ux98rRjMx_ShlLtI&sensor=false"></script>
+<script src="./Map style/minimal.js"></script>
+<script src="./Geocode data/latLngByTeamName.js"></script>
+<script src="./Rankings data/CBB_rankings.js"></script>
+<script src="./Rankings data/CBB_teamCrosswalk.js"></script>
+<script src="./appControl.js"></script>
+</html>
+
