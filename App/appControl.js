@@ -53,15 +53,6 @@ function PowerMap() {
         Non-reactive functions
     *****/
     
-    self.switchLogos = function() {
-        var currentStyle    = self.logoStyle; 
-        var newStyle      = (currentStyle === "Modern") ? "Throwback" : "Modern";
-        var newFileType   = (currentStyle === "Modern") ? "gif" : "png"; 
-        self.logoStyle(newStyle);
-        self.logoFileType(newFileType);
-        document.getElementById("switchLogos").innerHTML = "Use modern logos";
-    }
-    
     self.constructTimeLink = function(type, linkText) {
         var linkHTML, onclickHTML;
         var capitalType = type.charAt(0).toUpperCase() + type.slice(1);
@@ -69,6 +60,11 @@ function PowerMap() {
         else onclickHTML = (linkText === self.DECREMENT_TEXT) ? "powerMap.decrement" + capitalType + "()" : "powerMap.increment" + capitalType + "()";
         var linkHTML = "<a href='#' onclick='" + onclickHTML + "'>" + linkText + "</a>";
         return(linkHTML);
+    }
+    
+    self.preLoadLogo = function(teamName) {
+        var imgHTML = "<img src='./Team logos/Modern/" + teamName + ".png'>";
+        return(imgHTML);
     }
     
     self.getTeamMarkersInit = function(teamName) {
@@ -111,10 +107,14 @@ function PowerMap() {
     }
     
     self.getTeamNameById = function(teamId) {
-        return(self.teamCrosswalk[teamId]);   
+        return(self.teamCrosswalk()[teamId]);   
     }
     
-    self.teamCrosswalk = teamCrosswalk;
+    self.teamCrosswalk = ko.observableArray();
+    teamCrosswalk.map(
+        function(value) {
+            self.teamCrosswalk().push(value);
+        });
     
     /*****
         Observables begin here
@@ -124,7 +124,7 @@ function PowerMap() {
     self.week = ko.observable(1);
     
     self.teamMarkers = ko.observableArray(
-        self.teamCrosswalk.map(self.getTeamMarkersInit)
+        self.teamCrosswalk().map(self.getTeamMarkersInit)
         );
     
     self.seasonString = ko.computed( 
@@ -285,7 +285,7 @@ function PowerMap() {
     self.updateMarkers = ko.computed(
         function() {
             var rankedTeamIds = self.rankingsThisWeek().ranks.teamId;
-            self.teamCrosswalk.map(
+            self.teamCrosswalk().map(
                 function(teamName, teamIndex) {
                     var rank    = rankedTeamIds.indexOf(teamIndex) + 1;
                     var marker  = self.teamMarkers()[teamIndex];

@@ -144,6 +144,10 @@ a, a:active, a:visited {
     color: rgba(255, 0, 0, 0.75);
 }
 
+#logoPreLoad {
+    display: none;
+}
+
 #credit {
     position: fixed;
     top: 0px;
@@ -152,9 +156,9 @@ a, a:active, a:visited {
     font-size: 14px;
     color: rgba(0, 0, 0, 1);
     padding: 3px;
-    /*border-left: 2px solid #FFFFFF;
+    border-left: 2px solid #FFFFFF;
     border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;*/
+    border-bottom: 2px solid #FFFFFF;
     text-align: center;
 }
 
