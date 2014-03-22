@@ -14,7 +14,7 @@ function PowerMap() {
     self.INCREMENT_TEXT     = "&#x25B6";    // right-pointing triangle, used in link to increment week and season
     
     self.sport          = "basketball";
-    self.logoStyle      = ko.observable("Modern");
+    self.logoStyle      = ko.observable("modern");
     self.logoFileType   = ko.observable("png");
             
     /*****
@@ -78,7 +78,7 @@ function PowerMap() {
                 icon        : {
                     anchor          : anchor,
                     scaledSize      : size,
-                    url             : "./Team logos/" + self.logoStyle() + "/" + teamName + "." + self.logoFileType()
+                    url             : "./team_logos/" + self.logoStyle() + "/" + teamName + "." + self.logoFileType()
             }});
         
         marker.setMap(self.map);
@@ -295,7 +295,7 @@ function PowerMap() {
                         marker.setIcon({
                             anchor      : self.getMarkerAnchorByRank(rank),
                             scaledSize  : self.getMarkerSizeByRank(rank),
-                            url         : "./Team logos/" + self.logoStyle() + "/" + teamName + "." + self.logoFileType()
+                            url         : "./team_logos/" + self.logoStyle() + "/" + teamName + "." + self.logoFileType()
                         });
                         
                         marker.setTitle(teamName + " (" + rank + ")");
