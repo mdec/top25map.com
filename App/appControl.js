@@ -14,7 +14,6 @@ function PowerMap() {
     self.INCREMENT_TEXT     = "&#x25B6";    // right-pointing triangle, used in link to increment week and season
     
     self.sport          = "basketball";
-    self.logoStyle      = ko.observable("modern");
     self.logoFileType   = ko.observable("png");
             
     /*****
@@ -63,7 +62,7 @@ function PowerMap() {
     }
     
     self.preLoadLogo = function(teamName) {
-        var imgHTML = "<img src='./Team logos/Modern/" + teamName + ".png'>";
+        var imgHTML = "<img src='./team_logos/" + teamName + ".png'>";
         return(imgHTML);
     }
     
@@ -78,7 +77,7 @@ function PowerMap() {
                 icon        : {
                     anchor          : anchor,
                     scaledSize      : size,
-                    url             : "./team_logos/" + self.logoStyle() + "/" + teamName + "." + self.logoFileType()
+                    url             : "./team_logos/" + teamName + "." + self.logoFileType()
             }});
         
         marker.setMap(self.map);
@@ -295,7 +294,7 @@ function PowerMap() {
                         marker.setIcon({
                             anchor      : self.getMarkerAnchorByRank(rank),
                             scaledSize  : self.getMarkerSizeByRank(rank),
-                            url         : "./team_logos/" + self.logoStyle() + "/" + teamName + "." + self.logoFileType()
+                            url         : "./team_logos/" + teamName + "." + self.logoFileType()
                         });
                         
                         marker.setTitle(teamName + " (" + rank + ")");
